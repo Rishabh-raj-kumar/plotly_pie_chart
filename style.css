@@ -1,0 +1,63 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Space Mono;
+}
+
+body{
+  min-height : 100vh;
+  position: relative;
+}
+
+input{
+  border-radius: 3px;
+  border: 1px solid black;
+  padding: 10px 15px;
+  outline: none;
+}
+
+.form--box{
+  float : left;
+  width : 300px;
+  padding:10px;
+  margin: 1rem;
+  display: flex;
+  flex-wrap : wrap;
+  gap: 1rem;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+button{
+  border-radius: 3px;
+  border: 1px solid black;
+  background: black;
+  color : white;
+  text-transform : uppercase;
+  letter-spacing : 1px;
+  padding: 10px 15px;
+  outline: none;
+}
+
+.popup{
+  width: 400px;
+  padding-block: 10px;
+  background: #a0e6e6;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  text-align: center;
+  display: none;
+}
+
+#myPlot{
+  position: absolute;
+   width: 500px;
+   top: 75%;
+   transform: translate(0,-50%);
+}

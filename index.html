@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Stacked_cards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <div class="popup">Hello world</div>
+    <div class="form--box">
+     <h3>Add new Field</h3>
+     <input type="text" placeholder="Enter the name...." id="nam"/>
+     <input type="number" placeholder="Enter the value..." id="val"/>
+
+     <button id="text-btn">click</button>
+   </div>
+
+   <div class="form--box">
+     <h3>Delete Field</h3>
+     <input type="text" placeholder="Enter the value to be removes" id="del_value"/>
+     <button id="del">delete</button>
+   </div>
+
+   <div class="form--box">
+     <h3>Update Field</h3>
+     <input type="text" placeholder="Enter the old name" id="old_val"/>
+     <input type="text" placeholder="Enter the new name" id="new_val"/>
+     <button id="change">change</button>
+   </div>
+
+    <div id="myPlot" style="width:100%;max-width:700px"></div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script>
+
+     // let xArray = ["Italy", "France", "Spain", "USA", "Argentina"];
+     // localStorage.setItem('hello',JSON.stringify(xArray));
+     //  localStorage.setItem('hello_2',JSON.stringify([55, 49, 44, 24, 15]));
+    let xArray = JSON.parse(localStorage.getItem('hello'));
+
+    let yArray = JSON.parse(localStorage.getItem('hello_2'));
+
+    const layout = {title:"World Wide Wine Production"};
+
+    let btn = document.querySelector('#text-btn');
+    let input_val = document.getElementById('val');
+    let input_nam = document.getElementById('nam');
+    let popup  = document.querySelector('.popup');
+
+    btn.addEventListener('click',() =>{
+      xArray.push(input_nam.value);
+      yArray.push(input_val.value);
+      console.log(Number(input_val.value));
+      localStorage.setItem('hello',JSON.stringify(xArray));
+      localStorage.setItem('hello_2',JSON.stringify(yArray));
+      popup.textContent = "Item added succesfully.."
+      popup.style.display  = "block";
+
+      setTimeout(() =>{
+            window.location.reload();
+              popup.style.display  = "none";
+      },1000)
+    })
+
+    let delete_btn = document.getElementById('del');
+    let delete_value = document.getElementById('del_value');
+
+  delete_btn.addEventListener('click',() =>{
+    // xArray = xArray.filter(item => item !== "macgine")
+    // console.log(xArray);
+    console.log(del_value.value)
+     let idx = xArray.indexOf(del_value.value);
+    console.log(idx)
+    if(idx > -1){
+    xArray.splice(idx,1);
+     yArray.splice(idx,1);
+     console.log(xArray);
+   }
+    localStorage.setItem('hello',JSON.stringify(xArray));
+    localStorage.setItem('hello_2',JSON.stringify(yArray));
+
+    popup.textContent = "Item Deleted succesfully.."
+    popup.style.display  = "block";
+    popup.style.background = "rgba(255,0,0,0.3)";
+
+    setTimeout(() =>{
+          window.location.reload();
+            popup.style.display  = "none";
+    },1000)
+  })
+
+  let old_val = document.getElementById('old_val');
+  let new_val = document.getElementById('new_val');
+  let change = document.getElementById('change');
+
+  change.addEventListener('click',() =>{
+    let idx = xArray.indexOf(old_val.value);
+    xArray[idx] = new_val.value;
+    localStorage.setItem('hello',JSON.stringify(xArray));
+    popup.textContent = "Item Updated succesfully.."
+    popup.style.display  = "block";
+
+    setTimeout(() =>{
+          window.location.reload();
+            popup.style.display  = "none";
+    },1000)
+  })
+
+
+    const data = [{labels:xArray, values:yArray, type:"pie"}];
+
+     Plotly.newPlot("myPlot", data, layout);
+</script>
+  </body>
+</html>

@@ -11,13 +11,14 @@
   </head>
   <body>
 
+    <div id="myPlot" style="width:100%;max-width:700px;max-height : 400px"></div>
     <div class="popup">Hello world</div>
     <div class="form--box">
      <h3>Add new Field</h3>
      <input type="text" placeholder="Enter the name...." id="nam"/>
      <input type="number" placeholder="Enter the value..." id="val"/>
 
-     <button id="text-btn">click</button>
+     <button id="text-btn">Insert</button>
    </div>
 
    <div class="form--box">
@@ -33,7 +34,14 @@
      <button id="change">change</button>
    </div>
 
-    <div id="myPlot" style="width:100%;max-width:700px"></div>
+   <div class="form--box">
+     <select>
+       <option value="plot">Plot</option>
+       <option value="bar">Bar</option>
+       <option value="donut">Donut</option>
+       <option value="line">Line</option>
+     </select>
+   </div>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <script>
@@ -111,10 +119,41 @@
     },1000)
   })
 
+    const data_pie = [{labels:xArray, values:yArray, type:"pie"}];
+    const data_bar = [{
+  x: xArray,
+  y: yArray,
+  type: "bar",
+  orientation:"v",
+  marker: {color:"rgba(0,0,255)"}
+}];
+const data_donut = [{
+  labels: xArray,
+  values: yArray,
+   hole: .4,
+  type: "pie"
+}];
+const data_line = [{
+  x: xArray,
+  y: yArray,
+  mode: "lines"
+}];
 
-    const data = [{labels:xArray, values:yArray, type:"pie"}];
+let select = document.querySelector('select');
 
-     Plotly.newPlot("myPlot", data, layout);
+select.addEventListener('change',(e) =>{
+  if(e.target.value == "plot"){
+    Plotly.newPlot("myPlot", data_pie, layout);
+  }else if(e.target.value == "bar"){
+    Plotly.newPlot("myPlot", data_bar, layout);
+  }else if(e.target.value == "donut"){
+    Plotly.newPlot("myPlot", data_donut, layout);
+  }else{
+    Plotly.newPlot("myPlot",data_line,layout);
+  }
+})
+
+     Plotly.newPlot("myPlot", data_pie, layout);
 </script>
   </body>
 </html>

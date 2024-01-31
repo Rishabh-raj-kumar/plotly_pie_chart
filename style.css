@@ -30,7 +30,9 @@ input{
   border-radius: 3px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
 }
-
+.form--box select{
+  padding: 10px;
+}
 button{
   border-radius: 3px;
   border: 1px solid black;
@@ -54,10 +56,10 @@ button{
   text-align: center;
   display: none;
 }
-
+/* 
 #myPlot{
   position: absolute;
    width: 500px;
    top: 75%;
    transform: translate(0,-50%);
-}
+} */
